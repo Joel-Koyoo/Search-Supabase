@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
-import { SearchService } from './search.service';
+import { SearchService } from './search/search.service';
 import { ConfigModule } from '@nestjs/config';
 import {
   configurations,
   configurationsValidator,
 } from './common/config/configurations';
 import * as path from 'path';
+import { SupabaseModule } from './supabase/supabase.module';
+import { SearchModule } from './search/search.module';
 
 const currentDir: string = __dirname;
 
@@ -20,6 +22,8 @@ const currentDir: string = __dirname;
       load: [configurations],
       validationSchema: configurationsValidator,
     }),
+    SupabaseModule,
+    SearchModule,
   ],
   providers: [SearchService],
 })
